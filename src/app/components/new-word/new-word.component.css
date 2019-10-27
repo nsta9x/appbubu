@@ -1,0 +1,14 @@
+.full-width {
+    width: 100%;
+}
+
+#newwordform{
+  display: block;
+  width: 70%;
+  margin: auto;
+  padding: 30px;
+}
+
+button{
+  float: right;
+}

@@ -1,0 +1,17 @@
+<div id="newwordform">
+    <form [formGroup]="newwordForm" (ngSubmit)="onSubmit()">
+        <mat-form-field class="full-width">
+            <input matInput placeholder="Enter your new word" [formControl]="wordInput" [errorStateMatcher]="matcher">
+            <mat-error *ngIf="wordInput.hasError('required')">
+                Please don't let this field empty.
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field class="full-width">
+            <input matInput placeholder="Enter your definition" [formControl]="wordDef" [errorStateMatcher]="matcher">
+            <mat-error *ngIf="wordInput.hasError('required')">
+                Please don't let this field empty.
+            </mat-error>
+        </mat-form-field>
+        <button mat-button [disabled]='newwordForm.invalid' type="submit">Add new word</button>
+    </form>
+  </div>
