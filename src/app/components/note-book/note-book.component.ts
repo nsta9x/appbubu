@@ -19,7 +19,7 @@ export class NoteBookComponent implements OnInit {
   countdown;  
   wordValid;
   constructor(private serviceWord : WordService) {
-    // this.lstWord = serviceWord.getCurrentWordList();
+    this.lstWord = serviceWord.getCurrentWordList();
   }
 
   ngOnInit() { }
