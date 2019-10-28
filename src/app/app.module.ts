@@ -49,6 +49,9 @@ import { WordTypePipe } from './pipes/word-type.pipe';
     WordService,
     {provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher}
   ],
+  entryComponents: [ 
+    DialogBoxComponent
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

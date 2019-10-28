@@ -13,10 +13,8 @@ import { DialogBoxComponent } from '../dialog-box/dialog-box.component';
 })
 export class WordDetailComponent implements OnInit {
   @Input() word: Word;
-  @Output() updateWord = new EventEmitter<MouseEvent>();
-  @Output() deleteWord = new EventEmitter<Word>();
+  @Output() updateList = new EventEmitter<MouseEvent>();
   listWordType = WORD_TYPE;
-  boxCanModify = [];
   modifyForm = new FormGroup({});
   modify = false;
   modWord: Word;
@@ -31,12 +29,9 @@ export class WordDetailComponent implements OnInit {
   ngOnChanges(changes: SimpleChanges) {
     if(this.word) {
       this.modifyForm = this.fb.group({
-        translate: [this.word.wordDef, [Validators.required, Validators.minLength(2)]],
-        type: [this.word.type,         [Validators.required]]
+        wordDef:  [this.word.wordDef, [Validators.required, Validators.minLength(2)]],
+        type:     [this.word.type,    [Validators.required]]
       });
-      var i=0;
-      this.boxCanModify=[];
-      
       this.checkWord();
     }
   }
@@ -52,13 +47,16 @@ export class WordDetailComponent implements OnInit {
   closeModify(){
     this.openModify = false;
   }
+
   submitForm() {  
     if (this.modifyForm.valid) {
       this.modify = false;
-      this.hiddenMessage = true;
-      this.modWord       = this.modifyForm.value;
-      this.word = this.wordService.modifyWord(this.modWord);
-      this.updateWord.emit();
+      this.hiddenMessage  = true;
+      this.modWord        = this.modifyForm.value;
+      this.modWord.word   = this.word.word;
+      this.modWord.id     = this.word.id;
+      this.wordService.modifyWord(this.modWord);
+      this.updateList.emit();
     } else {
       this.hiddenMessage = false;
     }
@@ -74,8 +72,9 @@ export class WordDetailComponent implements OnInit {
 
       dialogRef.afterClosed().subscribe(result => {
         if(result) {
-          console.log('Yes clicked');
-          alert("This function is not available");
+          this.wordService.deleteWord(this.word);
+          this.word = null;
+          this.updateList.emit();
         }
       });
   }

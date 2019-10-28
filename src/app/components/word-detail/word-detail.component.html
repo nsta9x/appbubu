@@ -5,7 +5,8 @@
 </ng-template>
 <ng-template #wordDetail>
     <div class="word-detail">
-        <h3 [innerHTML]="word | wordTypePipe"></h3>
+        <h2>{{word.word}}</h2>
+        <h4 [innerHTML]="word.type | wordTypePipe"></h4>
         <h4>{{word.wordDef}}</h4>
     </div>
     <hr />

@@ -9,7 +9,8 @@ pdfMake.vfs = pdfFonts.pdfMake.vfs;
   providedIn: 'root'
 })
 export class WordService {
-  getCurrentWordList(): any {
+  getCurrentWordList(){
+    //localStorage.clear();
     if(localStorage.getItem(CONST.KEY_LIST_WORD) == null || localStorage.getItem(CONST.KEY_LIST_WORD) == undefined){
       localStorage.setItem(CONST.KEY_LIST_WORD, '[]');
     }
@@ -19,21 +20,37 @@ export class WordService {
   saveNewWord(newWord: Word) {
     let lstWord = this.getCurrentWordList();
     lstWord.push(newWord);
-    localStorage.removeItem(CONST.KEY_LIST_WORD);
     localStorage.setItem(CONST.KEY_LIST_WORD, JSON.stringify(lstWord));
   }
 
-  modifyWord(word: Word) {
-    alert("This function is not available");
+  modifyWord(modWord: Word) {
+    let lstWord = this.getCurrentWordList();
+    if(lstWord.length == 0) return;
+
+    let index = lstWord.findIndex(w => w.id == modWord.id);
+    if(index == -1) return;
+
+    lstWord[index] = modWord;
+    localStorage.setItem(CONST.KEY_LIST_WORD, JSON.stringify(lstWord));
+    console.log(modWord.word + " is modified.");
   }
 
+  deleteWord(delWord : any){
+    let lstWord = this.getCurrentWordList();
+    if(lstWord.length == 0) return;
+
+    let index = lstWord.findIndex(w => w.id == delWord.id);
+    if(index == -1) return;
+
+    lstWord.splice(index, 1);
+    localStorage.setItem(CONST.KEY_LIST_WORD, JSON.stringify(lstWord));
+    console.log(delWord.word + " is deleted.");
+  }
+
+  
   printWord(word: any) {
     let htmlContent = word.word + "\n" + word.wordDef;
     pdfMake.createPdf({"content": htmlContent}).download();
-  }
-
-  deleteWord(word : any){
-    alert("This function is not available");
   }
 
   constructor() { }

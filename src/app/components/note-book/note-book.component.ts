@@ -34,8 +34,7 @@ export class NoteBookComponent implements OnInit {
     this.serviceWord.printWord(word);
   }
 
-  onUpdateWord(){
-    alert("Function is not available");
-    console.log("Todo");
+  onUpdateList(){
+    this.lstWord = this.serviceWord.getCurrentWordList();
   }
 }
