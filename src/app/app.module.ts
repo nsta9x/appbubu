@@ -13,12 +13,20 @@ import { MatFormFieldModule, MatInputModule, ShowOnDirtyErrorStateMatcher,
   MatSelectModule, MatCardModule, MatListModule, MatRadioModule, MatDividerModule, MatProgressBarModule, ErrorStateMatcher } from '@angular/material';
 import { MainPageComponent } from './components/main-page/main-page.component';
 import { WordService } from './services/word.service';
+import { NoteBookComponent } from './components/note-book/note-book.component';
+import { WordDetailComponent } from './components/word-detail/word-detail.component';
+import { DialogBoxComponent } from './components/dialog-box/dialog-box.component';
+import { WordTypePipe } from './pipes/word-type.pipe';
 
 @NgModule({
   declarations: [
     AppComponent,
     NewWordComponent,
-    MainPageComponent
+    MainPageComponent,
+    NoteBookComponent,
+    WordDetailComponent,
+    DialogBoxComponent,
+    WordTypePipe
   ],
   imports: [
     BrowserModule,

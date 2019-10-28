@@ -1,0 +1,46 @@
+<ng-template [ngIf]="!openModify" [ngIfElse]="wordDetail">
+    <div class="word-detail">
+        <h3>Please select a word.</h3>
+    </div>
+</ng-template>
+<ng-template #wordDetail>
+    <div class="word-detail">
+        <h3 [innerHTML]="word | wordTypePipe"></h3>
+        <h4>{{word.wordDef}}</h4>
+    </div>
+    <hr />
+    <div class="word-detail" *ngIf="modify">
+        <form [formGroup]="modifyForm">
+            <label>Modify your definition:</label>
+            <input type="text" class="form-control" [value]="word.wordDef" formControlName="wordDef" required />
+            <label>Modify word type:</label>
+            <select class="form-control" formControlName="type" required>
+                <option *ngFor='let type of listWordType' value='{{type.id}}' [selected]="word.type == type.id">
+                    {{type.typename}}
+                </option>
+            </select>
+        </form>
+        <div class="form-group alert alert-warning" [hidden]="hiddenMessage">
+            Please review all fields before submitting.
+        </div>
+        <hr />
+    </div>
+
+    <div class="word-detail">
+        <div *ngIf="!modify">
+            <button class="form-control btn-modify" (click)="modify = true;">Modify</button>
+        </div>
+        <div *ngIf="!modify">
+            <button class="form-control btn-del" (click)="confirmDelete()">Delete</button>
+        </div>
+        <div *ngIf="!modify">
+            <button class="form-control btn-cancel" (click)="closeModify()">cancel</button>
+        </div>
+        <div *ngIf="modify">
+            <button class="form-control btn-save" (click)="submitForm()">Save</button>
+        </div>
+        <div *ngIf="modify">
+            <button class="form-control btn-cancel" (click)="modify = false;">Cancel</button>
+        </div>
+    </div>
+</ng-template>

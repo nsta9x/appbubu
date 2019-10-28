@@ -1,8 +1,36 @@
-.startButton{
+#main-content{
     display: block;
-    height: 100px;
-    width: 100px;
-    position:absolute;
-    top: 20%;
-    left: 43%;
+    width: 60%;
+    justify-content: center;
+}
+
+.startButton{
+    display: inline-block;
+    justify-content: center;
+}
+
+.listmenu{
+    display: inline-block;
+    width: 50%;
+    margin: auto;
+    padding: 30px;
+}
+
+.menu{
+    display: block;
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: 400;
+    justify-content: center;
+}
+
+.menu h3{
+    font-size: 1.2em;
+}
+
+.menu1 {
+    background-color: green;
+}
+.menu2 {
+    background-color: royalblue;
 }

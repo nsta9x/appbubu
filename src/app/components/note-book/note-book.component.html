@@ -1,0 +1,36 @@
+<div class="container">
+    <div class="row">MY NOTEBOOK</div>
+    <div class="row">
+      <mat-form-field>
+        <mat-select placeholder="Filter word by:">
+          <mat-option value='0'>All word</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <a id="btn_addword" routerLink="/addword">Add word</a>
+    </div>
+    
+    <div class="row">
+      <div class="col-sm-6 col-md-6 col-lg-6">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Word</th>
+              <th>Definition</th>
+              <th>Type</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let word of lstWord">
+              <td>{{word.word}}</td>
+              <td>{{word.wordDef}}</td>
+              <td><span (click)="selectWord(word)"><i class="fa fa-arrow-right"></i></span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="col-sm-6 col-md-6 col-lg-6">
+        <app-word-detail [word]="selectedWord" (updateWord)="onUpdateWord()"></app-word-detail>
+      </div>
+    </div>
+  </div>
