@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { WordService } from 'src/app/services/word.service';
 import pdfMake from 'pdfmake/build/pdfmake';
 import pdfFonts from 'pdfmake/build/vfs_fonts';
+import { WORD_TYPE } from 'src/app/data/word.type';
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 @Component({
@@ -15,12 +16,16 @@ pdfMake.vfs = pdfFonts.pdfMake.vfs;
 export class NewWordComponent implements OnInit {
   matcher         = new MyErrorStateMatcher();
   wordService     = new WordService();
-  wordInput       = new FormControl('', Validators.required);
-  wordDef         = new FormControl('', [Validators.required, Validators.minLength(2)]);
+  lstType         = WORD_TYPE;
 
-  newwordForm = new FormGroup({
+  wordInput       = new FormControl('', Validators.required);
+  wordDefInput    = new FormControl('', [Validators.required, Validators.minLength(2)]);
+  typeInput       = new FormControl(null);
+
+  newWordForm = new FormGroup({
     word:     this.wordInput,
-    wordDef:  this.wordDef
+    wordDef:  this.wordDefInput,
+    type:     this.typeInput
   });
 
   constructor(private router: Router, wordService: WordService) { }
@@ -29,7 +34,7 @@ export class NewWordComponent implements OnInit {
   }
 
   onSubmit(){
-    let newWord = this.newwordForm.value;
+    let newWord = this.newWordForm.value;
     this.wordService.saveNewWord(newWord);
     this.router.navigate(['/notebook']);
   }

@@ -19,10 +19,10 @@ export class NoteBookComponent implements OnInit {
   selectedBox;
   countdown;  
   wordValid;
-  constructor(private serviceWord : WordService) {}
+  constructor(private wordService : WordService) {}
 
   ngOnInit() { 
-    this.lstWord = this.serviceWord.getCurrentWordList();
+    this.lstWord = this.wordService.getCurrentWordList();
     console.log(this.lstWord);
   }
 
@@ -30,11 +30,7 @@ export class NoteBookComponent implements OnInit {
     this.selectedWord = word;
   }
 
-  print(word: any){
-    this.serviceWord.printWord(word);
-  }
-
   onUpdateList(){
-    this.lstWord = this.serviceWord.getCurrentWordList();
+    this.lstWord = this.wordService.getCurrentWordList();
   }
 }

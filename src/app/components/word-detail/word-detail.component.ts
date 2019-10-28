@@ -62,7 +62,7 @@ export class WordDetailComponent implements OnInit {
     }
   }
 
-  public confirmDelete() : void {
+  confirmDelete() : void {
       const dialogRef = this.dialog.open(DialogBoxComponent, {
         data: { 
           title: 'Confirm Delete',
@@ -73,9 +73,13 @@ export class WordDetailComponent implements OnInit {
       dialogRef.afterClosed().subscribe(result => {
         if(result) {
           this.wordService.deleteWord(this.word);
-          this.word = null;
+          this.openModify = false;
           this.updateList.emit();
         }
       });
+  }
+
+  print(word: any){
+    this.wordService.printWord(word);
   }
 }

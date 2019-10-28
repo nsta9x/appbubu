@@ -3,6 +3,7 @@ import { Word } from '../data/word';
 import { CONST } from '../data/const';
 import pdfMake from 'pdfmake/build/pdfmake';
 import pdfFonts from 'pdfmake/build/vfs_fonts';
+import { MaxLengthValidator } from '@angular/forms';
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 @Injectable({
@@ -19,8 +20,16 @@ export class WordService {
   
   saveNewWord(newWord: Word) {
     let lstWord = this.getCurrentWordList();
+
+    let maxId = 0;
+    lstWord.map(function(w){     
+      if (w.id > maxId) maxId = w.id;    
+    });
+
+    newWord.id = maxId+1;
     lstWord.push(newWord);
     localStorage.setItem(CONST.KEY_LIST_WORD, JSON.stringify(lstWord));
+    console.log("New word saved : " + newWord);
   }
 
   modifyWord(modWord: Word) {

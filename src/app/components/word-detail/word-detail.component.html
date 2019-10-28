@@ -8,6 +8,8 @@
         <h2>{{word.word}}</h2>
         <h4 [innerHTML]="word.type | wordTypePipe"></h4>
         <h4>{{word.wordDef}}</h4>
+
+        <span (click)="print(word)"><i class="fa fa-print" aria-hidden="true"></i> Print</span>
     </div>
     <hr />
     <div class="word-detail" *ngIf="modify">
