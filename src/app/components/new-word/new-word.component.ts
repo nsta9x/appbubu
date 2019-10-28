@@ -30,7 +30,7 @@ export class NewWordComponent implements OnInit {
 
   onSubmit(){
     let newWord = this.newwordForm.value;
-    let contentHtml = this.wordService.saveNewWord(newWord);
-    pdfMake.createPdf(contentHtml).download();
+    this.wordService.saveNewWord(newWord);
+    this.router.navigate(['/notebook']);
   }
 }
