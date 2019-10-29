@@ -14,7 +14,7 @@
         </mat-form-field>
         <mat-form-field class="full-width">
             <mat-select placeholder="Select word type:" [formControl]="typeInput">
-                <mat-option *ngFor='let type of lstType' [value]='type.id'>{{type.typename}}</mat-option>
+                <mat-option *ngFor='let type of lstType' [value]='type.id'>{{type.name}}</mat-option>
             </mat-select>
         </mat-form-field>
         <button mat-button [disabled]='newWordForm.invalid' type="submit">Add new word</button>

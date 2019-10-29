@@ -16,7 +16,6 @@ import { WordService } from './services/word.service';
 import { NoteBookComponent } from './components/note-book/note-book.component';
 import { WordDetailComponent } from './components/word-detail/word-detail.component';
 import { DialogBoxComponent } from './components/dialog-box/dialog-box.component';
-import { WordTypePipe } from './pipes/word-type.pipe';
 
 @NgModule({
   declarations: [
@@ -25,8 +24,7 @@ import { WordTypePipe } from './pipes/word-type.pipe';
     MainPageComponent,
     NoteBookComponent,
     WordDetailComponent,
-    DialogBoxComponent,
-    WordTypePipe
+    DialogBoxComponent
   ],
   imports: [
     BrowserModule,

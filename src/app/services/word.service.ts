@@ -16,9 +16,9 @@ export class WordService {
     if(word == null) return null;
     WORD_TYPE.forEach(function(type){
       if(type.id == word.type){
-        word.typeName   = type.typename;
+        word.typeName   = type.name;
         word.typeColor  = type.color;
-        word.typeAbb    = type.type;
+        word.typeAbb    = type.abb;
         return word;
       }
     });
@@ -73,7 +73,6 @@ export class WordService {
     console.log(delWord.word + " is deleted.");
   }
 
-  
   printWord(word: any) {
     let htmlContent = word.word + "\n" + word.wordDef;
     pdfMake.createPdf({"content": htmlContent}).download();
