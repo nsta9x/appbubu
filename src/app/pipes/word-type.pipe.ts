@@ -10,7 +10,7 @@ import { WORD_TYPE } from '../data/word.type';
 export class WordTypePipe implements PipeTransform {
   constructor(private _sanitizer:DomSanitizer) {}
   transform(word: Word, args?: any): SafeHtml {
-    if(word == null) return "<No Word Selected>";
+    if(word == null) return null;
     let typeWord  = '';
     let typeColor = '';
     let outputApply = '';

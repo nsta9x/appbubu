@@ -1,0 +1,38 @@
+.word-detail-display{
+    font-size: 30px;
+    font-weight: 400;
+}
+
+.word-detail-type-display{
+    font-size: 20px;
+    font-weight: 400;
+}
+
+.word-detail{
+    display: block;
+    width: 100%;
+}
+
+.btn-modify{
+    background-color : orange;
+}
+
+.btn-del{
+    background-color : red;
+    color: white;
+}
+
+.btn-save{
+    background-color : green;
+    color: white;
+}
+
+.btn-cancel{
+    background-color : gray;
+    color: white;
+}
+
+.btn-print{
+    background-color : green;
+    color: white;
+}
