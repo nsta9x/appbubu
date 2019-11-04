@@ -1,17 +1,18 @@
-import { Injectable, Sanitizer } from '@angular/core';
+import { Injectable, ElementRef, ViewChild } from '@angular/core';
 import { Word } from '../data/word';
 import { CONST } from '../data/const';
-import pdfMake from 'pdfmake/build/pdfmake';
-import pdfFonts from 'pdfmake/build/vfs_fonts';
+import * as jsPDF from 'jspdf';
+import * as html2canvas from 'html2canvas';
+
 import { MaxLengthValidator } from '@angular/forms';
 import { WORD_TYPE } from '../data/word.type';
-pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class WordService {
+  
   displayWord(word: Word): Word {
     if(word == null) return null;
     WORD_TYPE.forEach(function(type){
@@ -74,8 +75,13 @@ export class WordService {
   }
 
   printWord(word: any) {
-    let htmlContent = word.word + "\n" + word.wordDef;
-    pdfMake.createPdf({"content": htmlContent}).download();
+    html2canvas(document.getElementById('printZone')).then(function(canvas) {
+      var img = canvas.toDataURL("image/png");
+      var doc = new jsPDF('l', 'mm', [500, 350]);
+      doc.addImage(img,'JPEG',5,20);
+      let docname = word.word + ".pdf"
+      doc.save(docname);
+      });
   }
 
   constructor() { }

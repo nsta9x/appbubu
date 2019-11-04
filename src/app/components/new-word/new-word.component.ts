@@ -3,10 +3,7 @@ import { Validators, FormControl, FormGroup } from '@angular/forms';
 import { MyErrorStateMatcher } from 'src/app/data/error.state.matcher';
 import { Router } from '@angular/router';
 import { WordService } from 'src/app/services/word.service';
-import pdfMake from 'pdfmake/build/pdfmake';
-import pdfFonts from 'pdfmake/build/vfs_fonts';
 import { WORD_TYPE } from 'src/app/data/word.type';
-pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 @Component({
   selector: 'app-new-word',
