@@ -1,19 +1,19 @@
 <div id="newWordForm">
     <form [formGroup]="newWordForm" (ngSubmit)="onSubmit()">
         <mat-form-field class="full-width">
-            <input matInput placeholder="Enter your new word" [formControl]="wordInput" [errorStateMatcher]="matcher">
-            <mat-error *ngIf="wordInput.hasError('required')">
+            <input matInput placeholder="Enter your new word" [formControl]="W_ContentInput" [errorStateMatcher]="matcher">
+            <mat-error *ngIf="W_ContentInput.hasError('required')">
                 Please don't let this field empty.
             </mat-error>
         </mat-form-field>
         <mat-form-field class="full-width">
-            <input matInput placeholder="Enter your definition" [formControl]="wordDefInput" [errorStateMatcher]="matcher">
-            <mat-error *ngIf="wordDefInput.hasError('required')">
+            <input matInput placeholder="Enter your definition" [formControl]="W_DefInput" [errorStateMatcher]="matcher">
+            <mat-error *ngIf="W_DefInput.hasError('required')">
                 Please don't let this field empty.
             </mat-error>
         </mat-form-field>
         <mat-form-field class="full-width">
-            <mat-select placeholder="Select word type:" [formControl]="typeInput">
+            <mat-select placeholder="Select word type:" [formControl]="W_TypeInput">
                 <mat-option *ngFor='let type of lstType' [value]='type.id'>{{type.name}}</mat-option>
             </mat-select>
         </mat-form-field>

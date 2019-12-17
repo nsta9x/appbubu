@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { WordService } from 'src/app/services/word.service';
-import { Word } from 'src/app/data/word';
+import { Word } from 'src/app/models/word';
 import { WordDetailComponent } from '../word-detail/word-detail.component';
 import {MatSelectModule} from '@angular/material/select';
-import { WORD_TYPE } from 'src/app/data/word.type';
+import { WORD_TYPE } from 'src/app/models/word.type';
 import { CONST } from 'src/app/data/const';
 
 @Component({
@@ -12,7 +12,7 @@ import { CONST } from 'src/app/data/const';
   styleUrls: ['./note-book.component.css']
 })
 export class NoteBookComponent implements OnInit {
-  lstWord = [];
+  lstWord : Word[];
   lstWordType = WORD_TYPE;
   selectedWord : any;
   userId;
@@ -22,8 +22,7 @@ export class NoteBookComponent implements OnInit {
   constructor(private wordService : WordService) {}
 
   ngOnInit() { 
-    this.lstWord = this.wordService.getCurrentWordList();
-    console.log(this.lstWord);
+    this.onUpdateList();
   }
 
   selectWord(word: any){
@@ -31,6 +30,9 @@ export class NoteBookComponent implements OnInit {
   }
 
   onUpdateList(){
-    this.lstWord = this.wordService.getCurrentWordList();
+    this.wordService.getCurrentWordList().subscribe(data => {
+      this.lstWord = this.wordService.displayListWord(data);
+      console.log(this.lstWord);
+    });
   }
 }

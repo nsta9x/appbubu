@@ -10,12 +10,15 @@ import {MatDialogModule} from '@angular/material/dialog';
 import {MatButtonModule} from '@angular/material/button';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { MatFormFieldModule, MatInputModule, ShowOnDirtyErrorStateMatcher, 
-  MatSelectModule, MatCardModule, MatListModule, MatRadioModule, MatDividerModule, MatProgressBarModule, ErrorStateMatcher } from '@angular/material';
+  MatSelectModule, MatCardModule, MatListModule, MatRadioModule, MatDividerModule, MatProgressBarModule, ErrorStateMatcher, MatSnackBar, MatSnackBarModule } from '@angular/material';
 import { MainPageComponent } from './components/main-page/main-page.component';
 import { WordService } from './services/word.service';
 import { NoteBookComponent } from './components/note-book/note-book.component';
 import { WordDetailComponent } from './components/word-detail/word-detail.component';
 import { DialogBoxComponent } from './components/dialog-box/dialog-box.component';
+
+import { HttpClientModule } from '@angular/common/http';
+import { UserComponent } from './components/user/user.component';
 
 @NgModule({
   declarations: [
@@ -24,10 +27,12 @@ import { DialogBoxComponent } from './components/dialog-box/dialog-box.component
     MainPageComponent,
     NoteBookComponent,
     WordDetailComponent,
-    DialogBoxComponent
+    DialogBoxComponent,
+    UserComponent
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
     AppRoutingModule,
@@ -41,7 +46,8 @@ import { DialogBoxComponent } from './components/dialog-box/dialog-box.component
     MatCardModule,
     MatDividerModule,
     MatProgressBarModule,
-    MatInputModule
+    MatInputModule,
+    MatSnackBarModule
   ],
   providers: [
     WordService,

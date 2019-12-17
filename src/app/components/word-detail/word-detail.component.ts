@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, SimpleChanges, Output, EventEmitter } from '@angular/core';
-import { Word } from 'src/app/data/word';
-import { WORD_TYPE } from 'src/app/data/word.type';
+import { Word } from 'src/app/models/word';
+import { WORD_TYPE } from 'src/app/models/word.type';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { WordService } from 'src/app/services/word.service';
 import { MatDialog } from '@angular/material/dialog';
@@ -29,8 +29,8 @@ export class WordDetailComponent implements OnInit {
   ngOnChanges(changes: SimpleChanges) {
     if(this.word) {
       this.modifyForm = this.fb.group({
-        wordDef:  [this.word.wordDef, [Validators.required, Validators.minLength(2)]],
-        type:     [this.word.type,    [Validators.required]]
+        wordDef:  [this.word.def,     [Validators.required, Validators.minLength(2)]],
+        wordType: [this.word.type,    [Validators.required]]
       });
       this.checkWord();
     }
@@ -51,10 +51,10 @@ export class WordDetailComponent implements OnInit {
   submitForm() {  
     if (this.modifyForm.valid) {
       this.modify = false;
-      this.hiddenMessage  = true;
-      this.modWord        = this.modifyForm.value;
-      this.modWord.word   = this.word.word;
-      this.modWord.id     = this.word.id;
+      this.hiddenMessage      = true;
+      this.modWord            = this.modifyForm.value;
+      this.modWord.content    = this.word.content;
+      this.modWord.id         = this.word.id;
       this.wordService.modifyWord(this.modWord);
       this.updateList.emit();
     } else {

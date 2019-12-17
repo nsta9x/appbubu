@@ -17,8 +17,8 @@
           </thead>
           <tbody>
             <tr *ngFor="let word of lstWord">
-              <td>{{word.word}}</td>
-              <td>{{word.wordDef}}</td>
+              <td>{{word.content}}</td>
+              <td>{{word.def}}</td>
               <td>{{word.typeName}}</td>
               <td>
                 <span (click)="selectWord(word)"><i class="fa fa-arrow-right"></i></span>

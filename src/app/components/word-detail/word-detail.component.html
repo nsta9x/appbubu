@@ -5,23 +5,26 @@
 </ng-template>
 <ng-template #wordDetail>
     <div class="word-detail" id="printZone" #printZone>
-        <p><span class="word-detail-display" [style.color]="word.typeColor">{{word.word}}</span>&nbsp;<span
+        <p><span class="word-detail-display" [style.color]="word.typeColor">{{word.content}}</span>&nbsp;<span
                 class="word-detail-type-display">{{word.typeAbb}}</span></p>
-        <h4>{{word.wordDef}}</h4>
-        <!-- <span (click)="print(word)"><i class="fa fa-print" aria-hidden="true"></i> Print</span> -->
+        <h4>{{word.def}}</h4>
     </div>
 
     <hr />
+    <div *ngFor="let ex of word.examples, let i = index">
+        <p>{{i+1}} - {{ex.example}}</p>
+    </div>
 
+    <hr />
     <div class="word-detail" *ngIf="modify">
         <form [formGroup]="modifyForm">
             <label>Modify your definition for <span class="word-detail-display"
-                    [style.color]="word.typeColor">{{word.word}}</span></label>
-            <input type="text" class="form-control" [value]="word.wordDef" formControlName="wordDef" required />
+                    [style.color]="word.typeColor">{{word.content}}</span></label>
+            <input type="text" class="form-control" [value]="word.def" formControlName="wordDef" required />
             <label>Modify word type:</label>
-            <select class="form-control" formControlName="type" required>
+            <select class="form-control" formControlName="wordType" required>
                 <option *ngFor='let type of listWordType' value='{{type.id}}' [selected]="word.type == type.id">
-                    {{type.typename}}
+                    {{type.name}}
                 </option>
             </select>
         </form>
