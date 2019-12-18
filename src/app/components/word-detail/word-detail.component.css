@@ -1,3 +1,7 @@
+label{
+    margin-top : 10px;
+}
+
 .word-detail-display{
     font-size: 30px;
     font-weight: 400;
@@ -6,11 +10,6 @@
 .word-detail-type-display{
     font-size: 20px;
     font-weight: 400;
-}
-
-.word-detail{
-    display: block;
-    width: 100%;
 }
 
 .btn-modify{

@@ -1,10 +1,12 @@
 import { Component, OnInit, Input, SimpleChanges, Output, EventEmitter } from '@angular/core';
 import { Word } from 'src/app/models/word';
-import { WORD_TYPE } from 'src/app/models/word.type';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { WordService } from 'src/app/services/word.service';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogBoxComponent } from '../dialog-box/dialog-box.component';
+import { NotifyService } from 'src/app/services/notify.service';
+import { CONST, WORD_TYPE } from 'src/app/data/const';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-word-detail',
@@ -18,11 +20,14 @@ export class WordDetailComponent implements OnInit {
   modifyForm;
   modify = false;
   modWord: Word;
-  hiddenMessage = true;
-  fb : FormBuilder;
   userId: any;
   openModify = false;
-  constructor(fb: FormBuilder, private wordService: WordService, private dialog : MatDialog) {}
+  constructor(
+    private fb: FormBuilder, 
+    private wordService: WordService, 
+    private dialog : MatDialog, 
+    private _ns:NotifyService,
+    private router : Router) {}
 
   ngOnInit() {
     this.fb   = new FormBuilder();
@@ -31,9 +36,11 @@ export class WordDetailComponent implements OnInit {
   ngOnChanges(changes: SimpleChanges) {
     if(this.word) {
       this.modifyForm = this.fb.group({
-        wordDef:  [this.word.def,     [Validators.required, Validators.minLength(2)]],
-        wordType: [this.word.type,    [Validators.required]],
-        wordNote: [this.word.note,    ]
+        type: [this.word.type,   [Validators.required]],
+        note: [this.word.note],
+        example1: [this.word.example1],
+        example2: [this.word.example2],
+        example3: [this.word.example3]
       });
       this.checkWord();
     }
@@ -54,14 +61,23 @@ export class WordDetailComponent implements OnInit {
   submitForm() {  
     if (this.modifyForm.valid) {
       this.modify = false;
-      this.hiddenMessage      = true;
       this.modWord            = this.modifyForm.value;
       this.modWord.content    = this.word.content;
       this.modWord.id         = this.word.id;
-      this.wordService.modifyWord(this.modWord);
-      this.updateList.emit();
+
+      this.wordService.modifyWord(this.modWord).subscribe(
+        data => {
+          let message = "Word " + this.modWord.content + " is modifed.";
+          this._ns.ShowNotify(CONST.NOTI_OK, message);
+          this.updateList.emit();
+        },
+        error => {
+          console.log("server error");
+          this._ns.ShowNotify(CONST.NOTI_ERR, "Server Error");
+        }
+      )
     } else {
-      this.hiddenMessage = false;
+      this._ns.ShowNotify(CONST.NOTI_ERR, "Form error.");
     }
   }
 
@@ -75,9 +91,18 @@ export class WordDetailComponent implements OnInit {
 
       dialogRef.afterClosed().subscribe(result => {
         if(result) {
-          this.wordService.deleteWord(this.word);
-          this.openModify = false;
-          this.updateList.emit();
+          this.wordService.deleteWord(this.word.id).subscribe(
+            data => {
+              let message = "Word " + this.word + " is deleted."
+              this._ns.ShowNotify(CONST.NOTI_OK, message);
+              this.openModify = false;
+              this.updateList.emit();
+            },
+            error => {
+              console.log("server error");
+              this._ns.ShowNotify(CONST.NOTI_ERR, "Server Error");
+            }
+          )          
         }
       });
   }

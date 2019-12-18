@@ -3,9 +3,8 @@ import { Validators, FormControl, FormGroup } from '@angular/forms';
 import { MyErrorStateMatcher } from 'src/app/data/error.state.matcher';
 import { Router } from '@angular/router';
 import { WordService } from 'src/app/services/word.service';
-import { WORD_TYPE } from 'src/app/models/word.type';
 import { NotifyService } from 'src/app/services/notify.service';
-import { CONST } from 'src/app/data/const';
+import { CONST, WORD_TYPE } from 'src/app/data/const';
 
 @Component({
   selector: 'app-new-word',

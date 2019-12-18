@@ -1,19 +1,14 @@
 #main-content{
     display: block;
-    width: 60%;
     justify-content: center;
-}
-
-.startButton{
-    display: inline-block;
-    justify-content: center;
+    margin: auto;
 }
 
 .listmenu{
     display: inline-block;
-    width: 50%;
-    margin: auto;
+    width: 80%;
     padding: 30px;
+    margin: auto;
 }
 
 .menu{
@@ -33,4 +28,7 @@
 }
 .menu2 {
     background-color: royalblue;
+}
+.menu2 {
+    background-color: orange;
 }
