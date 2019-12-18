@@ -15,22 +15,25 @@ export class WordDetailComponent implements OnInit {
   @Input() word: Word;
   @Output() updateList = new EventEmitter<MouseEvent>();
   listWordType = WORD_TYPE;
-  modifyForm = new FormGroup({});
+  modifyForm;
   modify = false;
   modWord: Word;
   hiddenMessage = true;
-  fb: FormBuilder = new FormBuilder();
+  fb : FormBuilder;
   userId: any;
   openModify = false;
   constructor(fb: FormBuilder, private wordService: WordService, private dialog : MatDialog) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.fb   = new FormBuilder();
+  }
 
   ngOnChanges(changes: SimpleChanges) {
     if(this.word) {
       this.modifyForm = this.fb.group({
         wordDef:  [this.word.def,     [Validators.required, Validators.minLength(2)]],
-        wordType: [this.word.type,    [Validators.required]]
+        wordType: [this.word.type,    [Validators.required]],
+        wordNote: [this.word.note,    ]
       });
       this.checkWord();
     }

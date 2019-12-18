@@ -19,6 +19,7 @@ import { DialogBoxComponent } from './components/dialog-box/dialog-box.component
 
 import { HttpClientModule } from '@angular/common/http';
 import { UserComponent } from './components/user/user.component';
+import { LoginComponent } from './components/login/login.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { UserComponent } from './components/user/user.component';
     NoteBookComponent,
     WordDetailComponent,
     DialogBoxComponent,
-    UserComponent
+    UserComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,

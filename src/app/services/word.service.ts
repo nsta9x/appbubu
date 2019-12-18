@@ -50,7 +50,7 @@ export class WordService {
   }
 
   modifyWord(modWord: Word) {
-    let lstWord = this.getCurrentWordList();
+    //let lstWord = this.getCurrentWordList();
     // if(lstWord.length == 0) return;
 
     // let index = lstWord.findIndex(w => w.id == modWord.id);
@@ -59,6 +59,7 @@ export class WordService {
     // lstWord[index] = modWord;
     // localStorage.setItem(CONST.KEY_LIST_WORD, JSON.stringify(lstWord));
     // console.log(modWord.word + " is modified.");
+    return this.http.post<Word>(this.URL_MOD_WORD, modWord);
   }
 
   deleteWord(delWord : any){

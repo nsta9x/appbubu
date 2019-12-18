@@ -1,0 +1,20 @@
+<div id="loginForm">
+    <form [formGroup]="loginForm" (ngSubmit)="onLogIn()">
+        <mat-form-field class="full-width">
+            <input matInput placeholder="Enter your email or username" [formControl]="W_Login" [errorStateMatcher]="matcher">
+            <mat-error *ngIf="W_Login.hasError('required')">
+                Please don't let this field empty.
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field class="full-width">
+            <input type="password" matInput placeholder="Enter your password" [formControl]="W_Pass" [errorStateMatcher]="matcher">
+            <mat-error *ngIf="W_Pass.hasError('required')">
+                Please don't let this field empty.
+            </mat-error>
+            <mat-error *ngIf="W_Pass.hasError('minlength')">
+                Password must have at least 6 digits.
+            </mat-error>
+        </mat-form-field>
+        <button mat-button [disabled]='loginForm.invalid' type="submit">Log In</button>
+    </form>
+</div>

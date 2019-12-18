@@ -10,16 +10,23 @@
         <h4>{{word.def}}</h4>
     </div>
 
-    <hr />
-    <div *ngFor="let ex of word.examples, let i = index">
-        <p>{{i+1}} - {{ex.example}}</p>
+    <div *ngIf="!modify">
+        <hr />
+        <div  *ngFor="let ex of word.examples, let i = index" >
+            <p>{{i+1}} - {{ex.example}}</p>
+        </div>
+    </div>
+
+    <div *ngIf="!modify">
+        <hr />
+        <label>Your note:</label>
+        <p>{{word.note}}</p>
     </div>
 
     <hr />
     <div class="word-detail" *ngIf="modify">
         <form [formGroup]="modifyForm">
-            <label>Modify your definition for <span class="word-detail-display"
-                    [style.color]="word.typeColor">{{word.content}}</span></label>
+            <label>Modify your definition for <b [style.color]="word.typeColor"> {{word.content}}</b></label>
             <input type="text" class="form-control" [value]="word.def" formControlName="wordDef" required />
             <label>Modify word type:</label>
             <select class="form-control" formControlName="wordType" required>
@@ -27,6 +34,8 @@
                     {{type.name}}
                 </option>
             </select>
+            <label>Take some note about this word:</label>
+            <textarea class="form-control" [value]="word.note" formControlName="wordNote"></textarea>
         </form>
         <div class="form-group alert alert-warning" [hidden]="hiddenMessage">
             Please review all fields before submitting.

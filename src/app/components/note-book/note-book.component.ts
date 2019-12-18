@@ -5,6 +5,7 @@ import { WordDetailComponent } from '../word-detail/word-detail.component';
 import {MatSelectModule} from '@angular/material/select';
 import { WORD_TYPE } from 'src/app/models/word.type';
 import { CONST } from 'src/app/data/const';
+import { NotifyService } from 'src/app/services/notify.service';
 
 @Component({
   selector: 'app-note-book',
@@ -19,7 +20,7 @@ export class NoteBookComponent implements OnInit {
   selectedBox;
   countdown;  
   wordValid;
-  constructor(private wordService : WordService) {}
+  constructor(private wordService : WordService, private _ns : NotifyService) {}
 
   ngOnInit() { 
     this.onUpdateList();
@@ -30,9 +31,11 @@ export class NoteBookComponent implements OnInit {
   }
 
   onUpdateList(){
-    this.wordService.getCurrentWordList().subscribe(data => {
-      this.lstWord = this.wordService.displayListWord(data);
-      console.log(this.lstWord);
-    });
+    this.wordService.getCurrentWordList().subscribe(
+      data => {
+        this.lstWord = this.wordService.displayListWord(data);
+      },
+      error => { this._ns.ShowNotify(CONST.NOTI_ERR, "Server connection error")}
+    );
   }
 }
