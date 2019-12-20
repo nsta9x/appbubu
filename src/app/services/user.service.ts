@@ -9,7 +9,6 @@ import { AuthInfo } from '../models/authInfo';
   providedIn: 'root'
 })
 export class UserService {
-
   private URL_LIST_USER;
   private URL_LOGIN;
  
@@ -28,5 +27,9 @@ export class UserService {
  
   public save(user: User) {
     return this.http.post<User>(this.URL_LIST_USER, user);
+  }
+
+  validateCurrentSession(): any {
+    return 1;
   }
 }

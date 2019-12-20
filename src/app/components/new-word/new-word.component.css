@@ -2,6 +2,11 @@
     width: 100%;
 }
 
+label{
+  margin-top : 10px;
+}
+
+
 #newWordForm{
   display: block;
   width: 70%;

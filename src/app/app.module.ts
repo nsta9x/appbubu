@@ -20,6 +20,8 @@ import { DialogBoxComponent } from './components/dialog-box/dialog-box.component
 import { HttpClientModule } from '@angular/common/http';
 import { UserComponent } from './components/user/user.component';
 import { LoginComponent } from './components/login/login.component';
+import { TranslateFormComponent } from './components/translate-form/translate-form.component';
+import { UserMainComponent } from './components/user-main/user-main.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +32,9 @@ import { LoginComponent } from './components/login/login.component';
     WordDetailComponent,
     DialogBoxComponent,
     UserComponent,
-    LoginComponent
+    LoginComponent,
+    TranslateFormComponent,
+    UserMainComponent
   ],
   imports: [
     BrowserModule,

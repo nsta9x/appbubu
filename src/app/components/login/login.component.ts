@@ -32,7 +32,7 @@ export class LoginComponent implements OnInit {
     this.userService.login(this.authInfo).subscribe(
       data => {
         this._ns.ShowNotify(CONST.NOTI_OK, 'LogIn OK');
-        this.router.navigate(['/notebook']);
+        this.router.navigate(['/user']);
       },
       // if(data.status == CONST.RES_OK){
       //   setTimeout(() => {

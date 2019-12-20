@@ -1,5 +1,3 @@
-import { Example } from './example';
-
 export class Word{
     id      :   number;
     content :   string;

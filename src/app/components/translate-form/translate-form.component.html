@@ -1,0 +1,10 @@
+<div class="input-group mb-3">
+    <div class="input-group-prepend">
+        <button class="btn btn-outline-secondary" type="button" (click)="changeLang(P_word.lang_id)">
+          <img src="{{P_word.flagURL}}" class="mini-flag" />{{P_word.lang}}
+        </button>
+    </div>
+    <input type="text" class="form-control" aria-label="" aria-describedby="basic-addon1" 
+    (input)="sendTranslate($event.target.value)">
+</div>
+  

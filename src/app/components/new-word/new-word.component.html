@@ -1,22 +1,54 @@
 <div id="newWordForm">
     <form [formGroup]="newWordForm" (ngSubmit)="onSubmit()">
         <mat-form-field class="full-width">
-            <input matInput placeholder="Enter your new word" [formControl]="W_ContentInput" [errorStateMatcher]="matcher">
-            <mat-error *ngIf="W_ContentInput.hasError('required')">
-                Please don't let this field empty.
-            </mat-error>
+            <input matInput placeholder="Enter your new word" formControlName="content">
         </mat-form-field>
+
+        <label>Translation:</label>
+        <app-translate-form 
+            [P_word]="translateWord" 
+            (C_switchLang)="onSwitchLang($event)"
+            (C_sendTranslate)="onSendTranslate($event)">
+        </app-translate-form>
+
+        <label>Select word type:</label>
         <mat-form-field class="full-width">
-            <input matInput placeholder="Enter your definition" [formControl]="W_DefInput" [errorStateMatcher]="matcher">
-            <mat-error *ngIf="W_DefInput.hasError('required')">
-                Please don't let this field empty.
-            </mat-error>
-        </mat-form-field>
-        <mat-form-field class="full-width">
-            <mat-select placeholder="Select word type:" [formControl]="W_TypeInput">
+            <mat-select formControlName="type">
                 <mat-option *ngFor='let type of lstType' [value]='type.id'>{{type.name}}</mat-option>
             </mat-select>
         </mat-form-field>
+        <label>Add a note or an explication for this word:</label>
+        <textarea class="form-control" formControlName="note"></textarea>
+        
+        <label>Give some examples:</label>
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Ex. 1</span>
+            </div>
+            <input type="text" class="form-control" formControlName="example1" placeholder="Example...">
+            <div class="input-group-append">
+                <span class="input-group-text"><i class="fa fa-times" aria-hidden="true"></i></span>
+            </div>
+        </div>
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Ex. 2</span>
+            </div>
+            <input type="text" class="form-control" formControlName="example2" placeholder="Example...">
+            <div class="input-group-append">
+                <span class="input-group-text"><i class="fa fa-times" aria-hidden="true"></i></span>
+            </div>
+        </div>
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Ex. 3</span>
+            </div>
+            <input type="text" class="form-control" formControlName="example3" placeholder="Example...">
+            <div class="input-group-append">
+                <span class="input-group-text"><i class="fa fa-times" aria-hidden="true"></i></span>
+            </div>
+        </div>
+
         <button mat-button [disabled]='newWordForm.invalid' type="submit">Add new word</button>
     </form>
-  </div>
+</div>
