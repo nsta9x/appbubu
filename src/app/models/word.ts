@@ -9,9 +9,7 @@ export class Word{
     lang    :   string;
     lang_id :   number;
     flagURL :   string;
-    example1:   string;
-    example2:   string;
-    example3:   string;
+    examples:   string[];
     translate:  Word[];
     related:    Word[];
 }

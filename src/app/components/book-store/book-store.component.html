@@ -1,0 +1,33 @@
+<button>Log Out</button>
+<button>My Account</button>
+
+<div class="zone_button">
+  <a class="btn_notebook" id="btn_add"  (click)="addNoteBook()">Add word</a>
+  <a class="btn_notebook" id="btn_back" routerLink="/bookstore">Book Store</a>
+  <a class="btn_notebook" id="btn_edit" routerLink="/bookstore">Edit Notebook</a>
+</div>
+
+<h2>My BookStore</h2>
+
+<div class="container">
+  <div class="row notebookrow" *ngFor="let nb of bookstore">
+    <div class="col-sm-2 notebooktitle">
+      {{nb.name}}
+    </div>
+    <div class="col-sm-4">
+      {{nb.description}}
+    </div>
+    <div class="col-sm-2">
+      {{nb.word_count}} words
+    </div>
+    <div class="col-sm-2">
+      50 %
+    </div>
+    <div class="col-sm-1">
+      <img src="{{nb.flagURL}}" class="mini-flag" />
+    </div>
+    <div class="col-sm-1">
+      <span (click)="selectNoteBook(nb.id)"><i class="fa fa-arrow-right"></i></span>
+    </div>
+  </div>
+</div>

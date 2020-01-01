@@ -4,7 +4,7 @@ import { MyErrorStateMatcher } from 'src/app/data/error.state.matcher';
 import { Router, ActivatedRoute } from '@angular/router';
 import { WordService } from 'src/app/services/word.service';
 import { NotifyService } from 'src/app/services/notify.service';
-import { CONST, WORD_TYPE, LANG } from 'src/app/data/const';
+import { CONST, WORD_TYPE, LANG, ERROR_CODE } from 'src/app/data/const';
 import { Word } from 'src/app/models/word';
 import { isNullOrUndefined } from 'util';
 
@@ -16,7 +16,7 @@ import { isNullOrUndefined } from 'util';
 export class NewWordComponent implements OnInit {
   matcher = new MyErrorStateMatcher();
   newWordForm;
-  noteBookId;
+  notebook_id;
   lstType = WORD_TYPE;
   lstTranslateLang = 
   [
@@ -42,7 +42,7 @@ export class NewWordComponent implements OnInit {
 
   ngOnInit() {
     this.route.params.subscribe(params => {
-      this.noteBookId = params['nbId'];
+      this.notebook_id = params['nbId'];
     });
    }
 
@@ -67,12 +67,21 @@ export class NewWordComponent implements OnInit {
     let newWord = this.newWordForm.value;
     newWord.translate = this.lstTranslateWord;
     newWord.lang_id = 0;
-    newWord.notebook_id = this.noteBookId;
-    this.wordService.saveNewWord(newWord).subscribe(
+    let examples = [
+      this.newWordForm.value.example1, 
+      this.newWordForm.value.example2, 
+      this.newWordForm.value.example3
+    ]
+
+    this.wordService.saveNewWord(newWord, this.notebook_id, examples).subscribe(
       data => {
-        console.log("New word Saved");
-        this._ns.ShowNotify(CONST.NOTI_OK, "New word saved to notebook.");
-        this.router.navigate(['/notebook/'+ this.noteBookId]);
+        console.log(data);
+        if(data.RES_CODE == ERROR_CODE.ERR_WORD_EXISTED){
+          this._ns.ShowNotify(CONST.NOTI_ERR, "Word existed in bookstore.");
+        } else {
+          this._ns.ShowNotify(CONST.NOTI_OK, "New word saved to notebook.");
+          this.router.navigate(['/notebook/'+this.notebook_id]);
+        }  
       },
       error => {
         console.log("server error");

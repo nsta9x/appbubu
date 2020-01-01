@@ -21,7 +21,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { UserComponent } from './components/user/user.component';
 import { LoginComponent } from './components/login/login.component';
 import { TranslateFormComponent } from './components/translate-form/translate-form.component';
-import { UserMainComponent } from './components/user-main/user-main.component';
+import { BookStoreComponent } from './components/book-store/book-store.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +34,7 @@ import { UserMainComponent } from './components/user-main/user-main.component';
     UserComponent,
     LoginComponent,
     TranslateFormComponent,
-    UserMainComponent
+    BookStoreComponent
   ],
   imports: [
     BrowserModule,

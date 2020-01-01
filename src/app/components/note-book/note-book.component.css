@@ -1,7 +1,34 @@
+.btn_notebook{
+    padding: 6px;
+    border-radius: 10px;
+    margin-left : 10px;
+    display : inline-block;
+}
+
 #btn_addword{
     background: brown;
-    padding: 6px;
     color: white;
-    border-radius: 10%;
-    margin-left : 10px;
+}
+
+#btn_back{
+    background: green;
+    color: white;
+}
+
+#btn_edit{
+    background: yellow;
+}
+
+.zone_button{
+    display : block;
+    margin: 30px;
+}
+
+.zone_header{
+    display : block;
+    width: 100%;
+    height : 70px;
+    background-color: grey;
+    padding : 15px;
+    margin : 30px;
 }

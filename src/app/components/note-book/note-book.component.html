@@ -1,9 +1,14 @@
-<div class="container">
-    <div class="row">MY NOTEBOOK</div>
-    <div class="row">
-      <a id="btn_addword" routerLink="/addword">Add word</a>
-    </div>
-    
+<div class="zone_header">
+  {{notebook.name}}
+</div>
+
+<div class="zone_button">
+    <a class="btn_notebook" id="btn_addword" (click)="addWordToNoteBook()">Add word</a>
+    <a class="btn_notebook" id="btn_back" routerLink="/bookstore">Book Store</a>
+    <a class="btn_notebook" id="btn_edit" routerLink="/bookstore">Edit Notebook</a>
+</div>
+
+<div class="container">   
     <div class="row">
       <div class="col-sm-12 col-md-4 col-lg-4">
         <table class="table">
@@ -26,7 +31,7 @@
         </table>
       </div>
       <div class="col-sm-12 col-md-8 col-lg-8">
-        <app-word-detail [word]="selectedWord" (updateList)="onUpdateList()"></app-word-detail>
+        <app-word-detail [input_word]="selectedWord" [notebook_id]="notebook_id" (updateList)="onUpdateList()"></app-word-detail>
       </div>
     </div>
   </div>

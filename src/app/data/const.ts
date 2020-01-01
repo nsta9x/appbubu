@@ -7,6 +7,7 @@ export const LANG =
 
 export const CONST = Object.freeze ({
     KEY_LIST_WORD : "KEY_LIST_WORD",
+    RES_CODE      : "RES_CODE",
     BASE_URL      : "http://localhost:8080",
     NOTI_OK       : ['sn-success'],
     NOTI_ERR      : ['sn-error'],
@@ -14,6 +15,10 @@ export const CONST = Object.freeze ({
     RES_KO        : 0,
     IMG_DIR       : "assets/img/"
 });
+
+export const ERROR_CODE = Object.freeze ({
+    ERR_WORD_EXISTED : "ERR_WORD_EXISTED"
+})
 
 export const WORD_TYPE = 
 [

@@ -32,17 +32,9 @@ export class LoginComponent implements OnInit {
     this.userService.login(this.authInfo).subscribe(
       data => {
         this._ns.ShowNotify(CONST.NOTI_OK, 'LogIn OK');
-        this.router.navigate(['/user']);
+        this.router.navigate(['/bookstore']);
       },
-      // if(data.status == CONST.RES_OK){
-      //   setTimeout(() => {
-      //     this.router.navigate(['user']); // Navigate to dashboard view
-      //   }, 750);
-      // } else {
-      //      this._ns.ShowNotify(CONST.NOTI_ERR, 'Your username or password is incorrect. Please try again.');
-      // }},
       error => { this._ns.ShowNotify(CONST.NOTI_ERR, 'Server Error. Please try again.')}
     )
   }
-
 }

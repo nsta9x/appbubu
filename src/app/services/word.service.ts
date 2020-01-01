@@ -7,6 +7,7 @@ import { catchError, map, tap } from 'rxjs/operators';
 import { LanguageService } from './language.service';
 import { NotifyService } from './notify.service';
 import { HttpService } from './http.service';
+import { UserService } from './user.service';
 
 @Injectable({
   providedIn: 'root'
@@ -15,13 +16,15 @@ import { HttpService } from './http.service';
 export class WordService {
   private URL_GET_LIST_WORD = CONST.BASE_URL + "/notebook";
   private URL_GET_WORD      = CONST.BASE_URL + "/word";
-  private URL_ADD_WORD      = CONST.BASE_URL + "/addword";
+  private URL_ADD_WORD      = CONST.BASE_URL + "/newword";
   private URL_MOD_WORD      = CONST.BASE_URL + "/modword";
   private URL_DEL_WORD      = CONST.BASE_URL + "/delword";
   private HTTPHeader;
+  private user_id;
  
   constructor(protected http: HttpClient, private ls : LanguageService, 
-    private _ns : NotifyService, private _hs: HttpService) {
+    private _ns : NotifyService, private _hs: HttpService, private userService : UserService) {
+    this.user_id = userService.validateCurrentSession();
     let header = new HttpHeaders({'content-type': 'application/json'});
     this.HTTPHeader = {"headers" : header};
   }
@@ -42,7 +45,7 @@ export class WordService {
     });
   }
 
-  buildListWordTranslateAndRelate(w: Word) : Word{
+  buildWordDetail(w: Word) : Word{
     this.setTypeWord(w);
     this.ls.setLangForWord(w);
     if(w.translate){
@@ -51,11 +54,15 @@ export class WordService {
     if(w.related){
       w.related.forEach(w => {this.ls.setLangForWord(w); this.setTypeWord(w);});
     }
+    if(!w.examples){
+      w.examples = [];
+    }
+
     return w;
   }
 
-  getWordListByNoteBook(notebookid : number) : Observable<any>{
-    let objReq  = {nbId : notebookid};
+  getWordListByNoteBook(notebook_id : number) : Observable<any>{
+    let objReq  = {notebook_id : notebook_id};
     return this.http.post<String>(this.URL_GET_LIST_WORD, objReq, this.HTTPHeader)
     .pipe(
       catchError(error => {
@@ -65,8 +72,8 @@ export class WordService {
     ));
   }
 
-  getSelectedWord(word : Word): Observable<any> {
-    let objReq = {"word_id" : word.id};
+  getSelectedWord(word_id : number, notebook_id : number): Observable<any> {
+    let objReq = {word_id : word_id, notebook_id : notebook_id, user_id : this.user_id};
     return this.http.post<String>(this.URL_GET_WORD, objReq, this.HTTPHeader)
     .pipe(
       catchError(error => {
@@ -76,13 +83,36 @@ export class WordService {
     ));
   }
   
-  saveNewWord(newWord: Word) {
-    let req = {"word":newWord}
-    return this.http.post<Word>(this.URL_ADD_WORD, JSON.stringify(req), this.HTTPHeader);
+  saveNewWord(word: Word, notebook_id : number, examples : any) : Observable<any>{
+    let objReq = {
+      word        : word, 
+      notebook_id : notebook_id,
+      examples    : examples,
+      user_id     : this.user_id
+    };
+    return this.http.post<Word>(this.URL_ADD_WORD, JSON.stringify(objReq), this.HTTPHeader)
+    .pipe(
+      catchError(error => {
+        this._ns.ShowNotify(CONST.NOTI_ERR, error.message || 'Server Error');
+        return null;
+      }
+    ));
   }
 
-  modifyWord(modWord: Word) {
-    return this.http.post<any>(this.URL_MOD_WORD, modWord);
+  modifyWord(word: Word, notebook_id : number, examples : any) : Observable<any> {
+    let objReq = {
+      word        : word, 
+      notebook_id : notebook_id,
+      examples    : examples,
+      user_id     : this.user_id
+    };
+    return this.http.post<String>(this.URL_MOD_WORD, objReq, this.HTTPHeader)
+    .pipe(
+      catchError(error => {
+        this._ns.ShowNotify(CONST.NOTI_ERR, error.message || 'Server Error');
+        return null;
+      }
+    ));
   }
 
   deleteWord(wordId : number){

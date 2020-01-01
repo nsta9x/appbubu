@@ -1,4 +1,4 @@
-<ng-template [ngIf]="!openModify" [ngIfElse]="wordDetail">
+<ng-template [ngIf]="!this.input_word" [ngIfElse]="wordDetail">
     <div class="word-detail">
         <h3>Please select a word.</h3>
     </div>
@@ -7,8 +7,8 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-8">
-                <p class="word-detail-display" [style.color]="word.typeColor">{{word.content}} &nbsp; <span
-                        class="word-detail-type-display">{{word.typeAbb}}</span></p>
+                <p class="word-detail-display" [style.color]="input_word.typeColor">{{input_word.content}} &nbsp; <span
+                        class="word-detail-type-display">{{input_word.typeAbb}}</span></p>
             </div>
             <div class="col-sm-1">
                 <i class="fa fa-print" aria-hidden="true" (click)="print(word);"></i>
@@ -22,9 +22,9 @@
             <hr />
         </div>
 
-        <div *ngIf="word.note != null && !modify" class="alert alert-primary" role="alert">{{word.note}}</div>
+        <div *ngIf="input_word.note != null && !modify" class="alert alert-primary" role="alert">{{input_word.note}}</div>
         <table>
-            <tr *ngFor="let tr of word.translate">
+            <tr *ngFor="let tr of input_word.translate">
                 <td><img src="{{tr.flagURL}}" class="mini-flag" /></td>
                 <td>{{tr.content}}</td>
             </tr>
@@ -32,21 +32,21 @@
         <hr/>
 
         <div *ngIf="!modify">
-            <p *ngIf="word.example1">&#11044; {{word.example1}}</p>
-            <p *ngIf="word.example2">&#11044; {{word.example2}}</p>
-            <p *ngIf="word.example3">&#11044; {{word.example3}}</p>
+            <div *ngFor="let ex of input_word.examples">
+                <p *ngIf="ex != undefined">&#11044; {{ex}}</p>
+            </div>
             <hr />
-        </div>
+        </div> 
 
         <div *ngIf="!modify">Related word:</div>
 
         <div *ngIf="modify">
             <form [formGroup]="modifyForm">
-                <label>Modify your note for <b [style.color]="word.typeColor"> {{word.content}}</b></label>
-                <textarea class="form-control" [value]="word.note" formControlName="note"></textarea>
+                <label>Modify your note for <b [style.color]="input_word.typeColor"> {{input_word.content}}</b></label>
+                <textarea class="form-control" value="{{input_word.note}}" formControlName="note"></textarea>
                 <label>Modify word type:</label>
                 <select class="form-control" formControlName="type" required>
-                    <option *ngFor='let type of listWordType' value='{{type.id}}' [selected]="word.type == type.id">
+                    <option *ngFor='let type of listWordType' value='{{type.id}}' [selected]="input_word.type == type.id">
                         {{type.name}}
                     </option>
                 </select>
@@ -56,7 +56,7 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text">Ex. 1</span>
                     </div>
-                    <input type="text" class="form-control" formControlName="example1" placeholder="Example..." value="{{word.example1}}">
+                    <input type="text" class="form-control" formControlName="example1" placeholder="Example..." value="input_word.examples[0]">
                     <div class="input-group-append">
                         <span class="input-group-text"><i class="fa fa-times" aria-hidden="true"></i></span>
                     </div>
@@ -65,7 +65,7 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text">Ex. 2</span>
                     </div>
-                    <input type="text" class="form-control" formControlName="example2" placeholder="Example..." value="{{word.example2}}">
+                    <input type="text" class="form-control" formControlName="example2" placeholder="Example..." value="input_word.examples[1]">
                     <div class="input-group-append">
                         <span class="input-group-text"><i class="fa fa-times" aria-hidden="true"></i></span>
                     </div>
@@ -74,7 +74,7 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text">Ex. 3</span>
                     </div>
-                    <input type="text" class="form-control" formControlName="example3" placeholder="Example..." value="{{word.example3}}">
+                    <input type="text" class="form-control" formControlName="example3" placeholder="Example..." value="input_word.examples[2]">
                     <div class="input-group-append">
                         <span class="input-group-text"><i class="fa fa-times" aria-hidden="true"></i></span>
                     </div>

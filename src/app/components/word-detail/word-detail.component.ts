@@ -14,14 +14,15 @@ import { Router } from '@angular/router';
   styleUrls: ['./word-detail.component.css']
 })
 export class WordDetailComponent implements OnInit {
-  @Input() word: Word;
+  @Input() input_word:  any;
+  @Input() notebook_id: number;
   @Output() updateList = new EventEmitter<MouseEvent>();
   listWordType = WORD_TYPE;
   modifyForm;
   modify = false;
-  modWord: Word;
+  mod_word: Word;
   userId: any;
-  openModify = false;
+  selectedWord;
   constructor(
     private fb: FormBuilder, 
     private wordService: WordService, 
@@ -31,43 +32,40 @@ export class WordDetailComponent implements OnInit {
 
   ngOnInit() {
     this.fb   = new FormBuilder();
+    this.selectedWord = false;
   }
 
-  ngOnChanges(changes: SimpleChanges) {
-    if(this.word) {
+  ngOnChanges(changes : SimpleChanges){
+    console.log(this.input_word);
+    if(this.input_word){
       this.modifyForm = this.fb.group({
-        type: [this.word.type,   [Validators.required]],
-        note: [this.word.note],
-        example1: [this.word.example1],
-        example2: [this.word.example2],
-        example3: [this.word.example3]
+        type: [this.input_word.type,   [Validators.required]],
+        note: [this.input_word.note],
+        example1: [this.input_word.examples[0]],
+        example2: [this.input_word.examples[1]],
+        example3: [this.input_word.examples[2]],
       });
-      this.checkWord();
-    }
-  }
-
-  checkWord() {
-    if(this.word){
-      this.openModify = true;
-    } else {
-      this.openModify = false;
     }
   }
 
   closeModify(){
-    this.openModify = false;
+    this.selectedWord = false;
   }
 
   submitForm() {  
     if (this.modifyForm.valid) {
       this.modify = false;
-      this.modWord            = this.modifyForm.value;
-      this.modWord.content    = this.word.content;
-      this.modWord.id         = this.word.id;
+      this.mod_word            = this.modifyForm.value;
+      this.mod_word.content    = this.input_word.content;
+      this.mod_word.id         = this.input_word.id;
+      let examples = [
+        this.modifyForm.value.example1, 
+        this.modifyForm.value.example2, 
+        this.modifyForm.value.example3]
 
-      this.wordService.modifyWord(this.modWord).subscribe(
+      this.wordService.modifyWord(this.mod_word, this.notebook_id, examples).subscribe(
         data => {
-          let message = "Word " + this.modWord.content + " is modifed.";
+          let message = "Word " + this.mod_word.content + " is modifed.";
           this._ns.ShowNotify(CONST.NOTI_OK, message);
           this.updateList.emit();
         },
@@ -91,11 +89,11 @@ export class WordDetailComponent implements OnInit {
 
       dialogRef.afterClosed().subscribe(result => {
         if(result) {
-          this.wordService.deleteWord(this.word.id).subscribe(
+          this.wordService.deleteWord(this.input_word.id).subscribe(
             data => {
-              let message = "Word " + this.word + " is deleted."
+              let message = "Word " + this.input_word.content + " is deleted."
               this._ns.ShowNotify(CONST.NOTI_OK, message);
-              this.openModify = false;
+              this.selectedWord = false;
               this.updateList.emit();
             },
             error => {
