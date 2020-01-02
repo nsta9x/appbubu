@@ -9,7 +9,7 @@ import { BookStoreComponent } from './components/book-store/book-store.component
 
 const routes: Routes = [
   {path : '',                   component : MainPageComponent},
-  {path : 'newword/:nbId',      component : NewWordComponent},
+  {path : 'newword/:nbId/:lId', component : NewWordComponent},
   {path : 'bookstore',          component : BookStoreComponent},
   {path : 'notebook/:nbId',     component : NoteBookComponent},
   {path : 'login',              component : LoginComponent }

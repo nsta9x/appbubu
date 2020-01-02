@@ -5,12 +5,11 @@
         </mat-form-field>
 
         <label>Translation:</label>
-        <app-translate-form 
-            [P_word]="translateWord" 
-            (C_switchLang)="onSwitchLang($event)"
-            (C_sendTranslate)="onSendTranslate($event)">
-        </app-translate-form>
-
+        <mat-form-field class="full-width" *ngFor="let tw of lstTranslateWord">
+            <span matPrefix><img src="{{tw.flagURL}}" class="mini-flag"/> {{tw.lang}} &nbsp;</span>
+            <input matInput placeholder="Your word translate here..." (keyup)="updateTranslateContent(tw.lang_id, $event)"/>
+        </mat-form-field>
+        
         <label>Select word type:</label>
         <mat-form-field class="full-width">
             <mat-select formControlName="type">

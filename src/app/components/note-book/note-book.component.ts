@@ -46,6 +46,6 @@ export class NoteBookComponent implements OnInit {
   }
 
   addWordToNoteBook(){
-    this._rt.navigate(['/newword', this.notebook_id]);
+    this._rt.navigate(['/newword', this.notebook_id, this.notebook.lang_id]);
   }
 }
